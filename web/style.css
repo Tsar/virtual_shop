@@ -1,0 +1,400 @@
+body {
+    background-color: #EEFFEE;
+    font-family: "Arial Cyr", Arial, sans-serif;
+}
+
+h1 {
+    width: auto;
+    font-family: tahoma;
+    font-weight: bold;
+    color: #0000cc;
+    padding: 0;
+}
+
+#infoTable {
+    width: 100%;
+    border: 2px solid black;
+    border-collapse: collapse;
+}
+#infoTable th {
+    background: #CCFFCC;
+    padding: 5px;
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+}
+#infoTable td {
+    padding: 5px;
+    border: 1px solid black;
+}
+#infoTable .odd {
+    background: #EEEEFF;
+}
+#infoTable .even {
+    background: #EEFFEE;
+}
+
+#submitTable {
+    width: 100%;
+    border: 2px solid #FFEEFF;
+    border-collapse: collapse;
+}
+#submitTable td {
+    padding: 5px;
+}
+#submitTable .odd {
+    background: #EEFFEE;
+}
+#submitTable .even {
+    background: #EEEEFF;
+}
+
+#wrap {
+    margin:30px auto;
+    width:980px;
+}
+#content {
+    background:#F9FFF9;
+    /* border:1px solid #4c9ac3; */
+    border:1px solid #9A9A9A;
+    margin:0px;
+    padding:10px;
+    text-align:justify;
+}
+
+#lineTabs1 {
+    height:30px;
+    list-style:none;
+    margin:0px auto;
+    padding:0px;
+    padding-right:860px;
+    padding-left:10px;
+    width:110px;
+}
+#lineTabs1 li {
+    display:block;
+    float:right;
+    margin:0px;
+    padding:0px;
+    position:relative;
+    overflow:visible;
+    text-align:center;
+    width:110px;
+}
+#lineTabs1 li a {
+    background:url(images/tab.png);
+    color:#dbdbdb;
+    display:block;
+    font:normal 14px arial;
+    height:16px;
+    margin:0px -10px;
+    padding:7px 20px;
+    position:relative;
+    text-decoration:none;
+    width:90px;
+}
+#lineTabs1 li a.active {
+    background:url(images/tab_act.png);
+    color:white;
+    z-index:50;
+}
+#lineTabs1 li a:hover {
+    background:url(images/tab_act.png);
+    color:white;
+    z-index:30;
+}
+
+#lineTabs2 {
+    height:30px;
+    list-style:none;
+    margin:0px auto;
+    padding:0px;
+    padding-right:750px;
+    padding-left:10px;
+    width:220px;
+}
+#lineTabs2 li {
+    display:block;
+    float:right;
+    margin:0px;
+    padding:0px;
+    position:relative;
+    overflow:visible;
+    text-align:center;
+    width:110px;
+}
+#lineTabs2 li a {
+    background:url(images/tab.png);
+    color:#dbdbdb;
+    display:block;
+    font:normal 14px arial;
+    height:16px;
+    margin:0px -10px;
+    padding:7px 20px;
+    position:relative;
+    text-decoration:none;
+    width:90px;
+}
+#lineTabs2 li a.active {
+    background:url(images/tab_act.png);
+    color:white;
+    z-index:50;
+}
+#lineTabs2 li a:hover {
+    background:url(images/tab_act.png);
+    color:white;
+    z-index:30;
+}
+
+#lineTabs3 {
+    height:30px;
+    list-style:none;
+    margin:0px auto;
+    padding:0px;
+    padding-right:640px;
+    padding-left:10px;
+    width:330px;
+}
+#lineTabs3 li {
+    display:block;
+    float:right;
+    margin:0px;
+    padding:0px;
+    position:relative;
+    overflow:visible;
+    text-align:center;
+    width:110px;
+}
+#lineTabs3 li a {
+    background:url(images/tab.png);
+    color:#dbdbdb;
+    display:block;
+    font:normal 14px arial;
+    height:16px;
+    margin:0px -10px;
+    padding:7px 20px;
+    position:relative;
+    text-decoration:none;
+    width:90px;
+}
+#lineTabs3 li a.active {
+    background:url(images/tab_act.png);
+    color:white;
+    z-index:50;
+}
+#lineTabs3 li a:hover {
+    background:url(images/tab_act.png);
+    color:white;
+    z-index:30;
+}
+
+#lineTabs4 {
+    height:30px;
+    list-style:none;
+    margin:0px auto;
+    padding:0px;
+    padding-right:530px;
+    padding-left:10px;
+    width:440px;
+}
+#lineTabs4 li {
+    display:block;
+    float:right;
+    margin:0px;
+    padding:0px;
+    position:relative;
+    overflow:visible;
+    text-align:center;
+    width:110px;
+}
+#lineTabs4 li a {
+    background:url(images/tab.png);
+    color:#dbdbdb;
+    display:block;
+    font:normal 14px arial;
+    height:16px;
+    margin:0px -10px;
+    padding:7px 20px;
+    position:relative;
+    text-decoration:none;
+    width:90px;
+}
+#lineTabs4 li a.active {
+    background:url(images/tab_act.png);
+    color:white;
+    z-index:50;
+}
+#lineTabs4 li a:hover {
+    background:url(images/tab_act.png);
+    color:white;
+    z-index:30;
+}
+
+#lineTabs5 {
+    height:30px;
+    list-style:none;
+    margin:0px auto;
+    padding:0px;
+    padding-right:420px;
+    padding-left:10px;
+    width:550px;
+}
+#lineTabs5 li {
+    display:block;
+    float:right;
+    margin:0px;
+    padding:0px;
+    position:relative;
+    overflow:visible;
+    text-align:center;
+    width:110px;
+}
+#lineTabs5 li a {
+    background:url(images/tab.png);
+    color:#dbdbdb;
+    display:block;
+    font:normal 14px arial;
+    height:16px;
+    margin:0px -10px;
+    padding:7px 20px;
+    position:relative;
+    text-decoration:none;
+    width:90px;
+}
+#lineTabs5 li a.active {
+    background:url(images/tab_act.png);
+    color:white;
+    z-index:50;
+}
+#lineTabs5 li a:hover {
+    background:url(images/tab_act.png);
+    color:white;
+    z-index:30;
+}
+
+#lineTabs6 {
+    height:30px;
+    list-style:none;
+    margin:0px auto;
+    padding:0px;
+    padding-right:310px;
+    padding-left:10px;
+    width:660px;
+}
+#lineTabs6 li {
+    display:block;
+    float:right;
+    margin:0px;
+    padding:0px;
+    position:relative;
+    overflow:visible;
+    text-align:center;
+    width:110px;
+}
+#lineTabs6 li a {
+    background:url(images/tab.png);
+    color:#dbdbdb;
+    display:block;
+    font:normal 14px arial;
+    height:16px;
+    margin:0px -10px;
+    padding:7px 20px;
+    position:relative;
+    text-decoration:none;
+    width:90px;
+}
+#lineTabs6 li a.active {
+    background:url(images/tab_act.png);
+    color:white;
+    z-index:50;
+}
+#lineTabs6 li a:hover {
+    background:url(images/tab_act.png);
+    color:white;
+    z-index:30;
+}
+
+#lineTabs7 {
+    height:30px;
+    list-style:none;
+    margin:0px auto;
+    padding:0px;
+    padding-right:200px;
+    padding-left:10px;
+    width:770px;
+}
+#lineTabs7 li {
+    display:block;
+    float:right;
+    margin:0px;
+    padding:0px;
+    position:relative;
+    overflow:visible;
+    text-align:center;
+    width:110px;
+}
+#lineTabs7 li a {
+    background:url(images/tab.png);
+    color:#dbdbdb;
+    display:block;
+    font:normal 14px arial;
+    height:16px;
+    margin:0px -10px;
+    padding:7px 20px;
+    position:relative;
+    text-decoration:none;
+    width:90px;
+}
+#lineTabs7 li a.active {
+    background:url(images/tab_act.png);
+    color:white;
+    z-index:50;
+}
+#lineTabs7 li a:hover {
+    background:url(images/tab_act.png);
+    color:white;
+    z-index:30;
+}
+
+#lineTabs8 {
+    height:30px;
+    list-style:none;
+    margin:0px auto;
+    padding:0px;
+    padding-right:90px;
+    padding-left:10px;
+    width:880px;
+}
+#lineTabs8 li {
+    display:block;
+    float:right;
+    margin:0px;
+    padding:0px;
+    position:relative;
+    overflow:visible;
+    text-align:center;
+    width:110px;
+}
+#lineTabs8 li a {
+    background:url(images/tab.png);
+    color:#dbdbdb;
+    display:block;
+    font:normal 14px arial;
+    height:16px;
+    margin:0px -10px;
+    padding:7px 20px;
+    position:relative;
+    text-decoration:none;
+    width:90px;
+}
+#lineTabs8 li a.active {
+    background:url(images/tab_act.png);
+    color:white;
+    z-index:50;
+}
+#lineTabs8 li a:hover {
+    background:url(images/tab_act.png);
+    color:white;
+    z-index:30;
+}
