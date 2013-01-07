@@ -46,6 +46,11 @@ class RegistrationTab extends AbstractTab {
             <td><input type="password" size="20" name="password2"></td>
         </tr>
         <?php tr($i); ?>
+            <td>Role:</td>
+            <td><label><input type="radio" name="cOrM" value="customer" <?php if (!$this->userInfo->isManager) echo "checked"; ?> />Customer</label><br />
+                <label><input type="radio" name="cOrM" value="manager" <?php if ($this->userInfo->isManager) echo "checked"; ?> />Manager</label></td>
+        </tr>
+        <?php tr($i); ?>
             <td colspan="2"><center><input type="submit" name="submitRegister" value="Register"></center></td>
         </tr>
     </table>
@@ -55,13 +60,14 @@ class RegistrationTab extends AbstractTab {
     }
 
     public function isSubmitted() {
-        return (isset($_POST['submitRegister']) && isset($_POST['name']) && isset($_POST['email']) && isset($_POST['password']) && isset($_POST['password2']));
+        return (isset($_POST['submitRegister']) && isset($_POST['name']) && isset($_POST['email']) && isset($_POST['password']) && isset($_POST['password2']) && isset($_POST['cOrM']));
     }
 
     public function handleSubmit() {
         $this->userInfo->name = $_POST['name'];
         $this->userInfo->email = $_POST['email'];
         $this->userInfo->md5 = md5($_POST['password']);
+        $this->userInfo->isManager = ($_POST['cOrM'] === "manager");
         
         $pwd = $_POST['password'];
         if ($pwd !== $_POST['password2']) {

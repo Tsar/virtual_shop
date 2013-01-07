@@ -38,6 +38,10 @@ class ProfileTab extends AbstractTab {
             <td><input type="text" size="20" name="name" value="<?php echo $this->userInfo->name; ?>"></td>
         </tr>
         <?php tr($i); ?>
+            <td>Role:</td>
+            <td><b><?php echo $this->userInfo->isManager ? "Manager" : "Customer"; ?></b></td>
+        </tr>
+        <?php tr($i); ?>
             <td>E-mail:</td>
             <td><input type="text" size="20" name="email" value="<?php echo $this->userInfo->email; ?>"></td>
         </tr>

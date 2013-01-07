@@ -81,7 +81,7 @@ function display_error_or_info_if_any($error, $info) {
 }
 
 function tr(&$i) {
-    echo ($i % 2 == 0) ? '<tr class="odd">' : '<tr class="even">';
+    echo ($i % 2 == 0) ? "<tr class=\"odd\">\n" : "<tr class=\"even\">\n";
     ++$i;
 }
 
