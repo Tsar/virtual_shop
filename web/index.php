@@ -5,6 +5,8 @@
     require_once('tabs/profile_tab.inc.php');
     require_once('tabs/logout_tab.inc.php');
 
+    require_once('tabs/manager/manage_articles_tab.inc.php');
+
     require_once('tab_holder.inc.php');
     require_once('database_manager.inc.php');
     require_once('style.inc.php');
@@ -75,8 +77,6 @@
                 $profileTab = new ProfileTab($selfLink, $dbm, $user_id, $user_info);
                 $logoutTab = new LogoutTab();
                 
-                $tabHolder->addTab($profileTab);
-
                 // if update profile form submitted
                 if ($profileTab->isSubmitted()) {
                     $page = $profileTab->getTabInfo()->page;
@@ -85,13 +85,21 @@
 
                 // if a manager is logged in
                 if ($user_info->isManager) {
-                    
+                    $manageArticlesTab = new ManageArticlesTab($selfLink, $dbm, $user_id);
+
+                    if ($manageArticlesTab->isSubmitted()) {
+                        $page = $manageArticlesTab->getTabInfo()->page;
+                        $manageArticlesTab->handleSubmit();
+                    }
+
+                    $tabHolder->addTab($manageArticlesTab);
 
                 // if a customer is logged in
                 } else {
                     
                 }
 
+                $tabHolder->addTab($profileTab);
                 $tabHolder->addTab($logoutTab);
             }
         }

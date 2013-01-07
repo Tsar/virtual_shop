@@ -151,6 +151,29 @@ class DatabaseManager {
     public function close() {
         $this->mysqli->close();
     }
+
+    public function getArticles() {
+        if ($result = $this->query('SELECT a.id, a.name, a.description, a.price, a.discount, a.discount_active_till, u1.name, u2.name FROM articles AS a LEFT OUTER JOIN users AS u1 ON a.added_by_manager_id = u1.id LEFT OUTER JOIN users AS u2 ON a.last_modified_by_manager_id = u2.id')) {
+            $ans = array();
+            while ($row = $result->fetch_array(MYSQLI_NUM)) {
+                array_push($ans, $row);
+            }
+            return $ans;
+        } else {
+            return false;
+        }
+    }
+
+    public function addNewArticle($name, $description, $price, $discount, $discountActiveTill, $managerUserId) {
+        $name               = $this->escapeStr($name);
+        $description        = $this->escapeStr($description);
+        $price              = $this->escapeStr($price);
+        $discount           = $this->escapeStr($discount);
+        $discountActiveTill = $this->escapeStr($discountActiveTill);
+        $managerUserId      = $this->escapeStr($managerUserId);
+
+        return ($this->query("INSERT INTO articles (name, description, price, discount, discount_active_till, added_by_manager_id) VALUES (\"$name\", \"$description\", $price, $discount, \"$discountActiveTill\", $managerUserId)"));
+    }
 }
 
 ?>
