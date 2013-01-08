@@ -153,7 +153,7 @@ class DatabaseManager {
     }
 
     public function getArticles() {
-        if ($result = $this->query('SELECT a.id, a.name, a.description, a.price, a.discount, a.discount_active_till, u1.name, u2.name FROM articles AS a LEFT OUTER JOIN users AS u1 ON a.added_by_manager_id = u1.id LEFT OUTER JOIN users AS u2 ON a.last_modified_by_manager_id = u2.id')) {
+        if ($result = $this->query('SELECT a.id, a.name, a.description, a.price, a.discount, a.discount_active_till, a.avaliable, a.booked, a.bought, u1.name, u2.name FROM articles AS a LEFT OUTER JOIN users AS u1 ON a.added_by_manager_id = u1.id LEFT OUTER JOIN users AS u2 ON a.last_modified_by_manager_id = u2.id')) {
             $ans = array();
             while ($row = $result->fetch_array(MYSQLI_NUM)) {
                 array_push($ans, $row);
@@ -164,15 +164,41 @@ class DatabaseManager {
         }
     }
 
-    public function addNewArticle($name, $description, $price, $discount, $discountActiveTill, $managerUserId) {
+    public function addNewArticle($name, $description, $price, $discount, $discountActiveTill, $instancesCount, $managerUserId) {
         $name               = $this->escapeStr($name);
         $description        = $this->escapeStr($description);
         $price              = $this->escapeStr($price);
         $discount           = $this->escapeStr($discount);
         $discountActiveTill = $this->escapeStr($discountActiveTill);
+        $instancesCount     = $this->escapeStr($instancesCount);
         $managerUserId      = $this->escapeStr($managerUserId);
 
-        return ($this->query("INSERT INTO articles (name, description, price, discount, discount_active_till, added_by_manager_id) VALUES (\"$name\", \"$description\", $price, $discount, \"$discountActiveTill\", $managerUserId)"));
+        return ($this->query("INSERT INTO articles (name, description, price, discount, discount_active_till, avaliable, added_by_manager_id) VALUES (\"$name\", \"$description\", $price, $discount, \"$discountActiveTill\", $instancesCount, $managerUserId)"));
+    }
+    
+    public function startTransaction() {
+        return ($this->query("START TRANSACTION"));
+    }
+
+    public function commitTransaction() {
+        return ($this->query("COMMIT"));
+    }
+
+    public function updateArticleDiscount($id, $discount, $discountActiveTill, $managerUserId) {
+        $id                 = $this->escapeStr($id);
+        $discount           = $this->escapeStr($discount);
+        $discountActiveTill = $this->escapeStr($discountActiveTill);
+        $managerUserId      = $this->escapeStr($managerUserId);
+
+        return ($this->query("CALL update_article_discount($id, $discount, \"$discountActiveTill\", $managerUserId)"));
+    }
+
+    public function addArticleInstances($id, $newInstCount, $managerUserId) {
+        $id            = $this->escapeStr($id);
+        $newInstCount  = $this->escapeStr($newInstCount);
+        $managerUserId = $this->escapeStr($managerUserId);
+
+        return ($this->query("CALL add_article_instances($id, $newInstCount, $managerUserId)"));
     }
 }
 
