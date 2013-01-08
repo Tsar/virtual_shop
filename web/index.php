@@ -5,6 +5,8 @@
     require_once('tabs/profile_tab.inc.php');
     require_once('tabs/logout_tab.inc.php');
 
+    require_once('tabs/customer/articles_tab.inc.php');
+
     require_once('tabs/manager/manage_articles_tab.inc.php');
 
     require_once('tab_holder.inc.php');
@@ -74,6 +76,9 @@
 
                 $user_info = $dbm->getUserInfo($user_id);
 
+                $articlesTab = new ArticlesTab($selfLink, $dbm, $user_id);
+                $tabHolder->addTab($articlesTab);
+
                 $profileTab = new ProfileTab($selfLink, $dbm, $user_id, $user_info);
                 $logoutTab = new LogoutTab();
                 
@@ -96,7 +101,7 @@
 
                 // if a customer is logged in
                 } else {
-                    
+
                 }
 
                 $tabHolder->addTab($profileTab);

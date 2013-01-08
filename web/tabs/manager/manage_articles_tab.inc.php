@@ -33,7 +33,7 @@ class ManageArticlesTab extends AbstractTab {
     }
 
     public function getTabInfo() {
-        return new TabInfo("Articles", "manage_articles");
+        return new TabInfo("Manage art.", "manage_articles");
     }
 
     public function displayContent() {
@@ -66,7 +66,7 @@ class ManageArticlesTab extends AbstractTab {
         </tr>
         <?php tr($i); ?>
             <td>Discount active till:</td>
-            <td><input type="text" size="20" name="discountActiveTill" value="<?php echo $this->aDiscountActiveTill; ?>"></td>
+            <td><input type="text" size="20" name="discountActiveTill" value="<?php echo $this->aDiscountActiveTill; ?>"> <font size="2">(ex.: 2015-07-23 16:30:00)</font></td>
         </tr>
         <?php tr($i); ?>
             <td colspan="2"><center><input type="submit" name="submitNewArticle" value="New article"></center></td>
@@ -81,7 +81,7 @@ class ManageArticlesTab extends AbstractTab {
         <th>Name</th>
         <th>Description</th>
         <th>Price</th>
-        <th>Discount<br />%</th>
+        <th>Discount</th>
         <th>Discount<br />active till</th>
         <th>Avaliable<br />Booked<br />Bought</th>
         <th>Add<br />instances</th>
@@ -99,7 +99,7 @@ class ManageArticlesTab extends AbstractTab {
         <td><?php echo $a[1]; ?></td>
         <td><font size=2><?php echo $a[2]; ?></font></td>
         <td align="center"><input type="text" size="5" name="price<?php echo $a[0]; ?>" value="<?php echo $a[3]; ?>" /></td>
-        <td align="center"><input type="text" size="3" name="discount<?php echo $a[0]; ?>" value="<?php echo $a[4]; ?>" /></td>
+        <td align="center"><input type="text" size="3" name="discount<?php echo $a[0]; ?>" value="<?php echo $a[4]; ?>" />%</td>
         <td align="center"><input type="text" name="discount<?php echo $a[0]; ?>ActiveTill" value="<?php echo $a[5]; ?>" /></td>
         <td><?php echo $a[6] . " / " . $a[7] . " / " . $a[8]; ?></td>
         <td align="center"><input type="text" size="3" name="add<?php echo $a[0]; ?>Instances" value="" /></td>
