@@ -184,13 +184,14 @@ class DatabaseManager {
         return ($this->query("COMMIT"));
     }
 
-    public function updateArticleDiscount($id, $discount, $discountActiveTill, $managerUserId) {
+    public function updateArticlePriceAndDiscount($id, $price, $discount, $discountActiveTill, $managerUserId) {
         $id                 = $this->escapeStr($id);
+        $price              = $this->escapeStr($price);
         $discount           = $this->escapeStr($discount);
         $discountActiveTill = $this->escapeStr($discountActiveTill);
         $managerUserId      = $this->escapeStr($managerUserId);
 
-        return ($this->query("CALL update_article_discount($id, $discount, \"$discountActiveTill\", $managerUserId)"));
+        return ($this->query("CALL update_article_price_and_discount($id, $price, $discount, \"$discountActiveTill\", $managerUserId)"));
     }
 
     public function addArticleInstances($id, $newInstCount, $managerUserId) {

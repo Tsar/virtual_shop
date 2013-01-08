@@ -81,7 +81,7 @@ class ManageArticlesTab extends AbstractTab {
         <th>Name</th>
         <th>Description</th>
         <th>Price</th>
-        <th>Discount</th>
+        <th>Discount<br />%</th>
         <th>Discount<br />active till</th>
         <th>Avaliable<br />Booked<br />Bought</th>
         <th>Add<br />instances</th>
@@ -98,7 +98,7 @@ class ManageArticlesTab extends AbstractTab {
     <?php tr($i); ?>
         <td><?php echo $a[1]; ?></td>
         <td><font size=2><?php echo $a[2]; ?></font></td>
-        <td align="right"><?php echo $a[3]; ?></td>
+        <td align="center"><input type="text" size="5" name="price<?php echo $a[0]; ?>" value="<?php echo $a[3]; ?>" /></td>
         <td align="center"><input type="text" size="3" name="discount<?php echo $a[0]; ?>" value="<?php echo $a[4]; ?>" /></td>
         <td align="center"><input type="text" name="discount<?php echo $a[0]; ?>ActiveTill" value="<?php echo $a[5]; ?>" /></td>
         <td><?php echo $a[6] . " / " . $a[7] . " / " . $a[8]; ?></td>
@@ -152,7 +152,7 @@ class ManageArticlesTab extends AbstractTab {
             if (!empty($ids)) {
                 $this->dbm->startTransaction();
                 foreach ($ids as $id) {
-                    $this->dbm->updateArticleDiscount($id, $_POST["discount$id"], $_POST["discount$id" . "ActiveTill"], $this->userId);
+                    $this->dbm->updateArticlePriceAndDiscount($id, $_POST["price$id"], $_POST["discount$id"], $_POST["discount$id" . "ActiveTill"], $this->userId);
                     $newInstCount = $_POST["add$id" . "Instances"];
                     if ($newInstCount !== "" && is_numeric($newInstCount)) {
                         $this->dbm->addArticleInstances($id, $newInstCount, $this->userId);
