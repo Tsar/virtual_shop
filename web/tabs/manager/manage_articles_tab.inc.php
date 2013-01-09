@@ -90,7 +90,7 @@ class ManageArticlesTab extends AbstractTab {
         <th>Last<br />modified<br />by</th>
     </tr>
 <?php
-        if ($articles = $this->dbm->getArticles()) {
+        if ($articles = $this->dbm->getArticles(true)) {
             $i = 0;
             $ids = array();
             foreach ($articles as $a) {
@@ -100,9 +100,9 @@ class ManageArticlesTab extends AbstractTab {
         <td><?php echo $a[1]; ?></td>
         <td><font size=2><?php echo $a[2]; ?></font></td>
         <td align="center"><input type="text" size="5" name="price<?php echo $a[0]; ?>" value="<?php echo $a[3]; ?>" /></td>
-        <td align="right"><?php echo ceil($a[3] * (1.0 - $a[4] / 100.0)); ?></td>
-        <td align="center"><input type="text" size="3" name="discount<?php echo $a[0]; ?>" value="<?php echo $a[4]; ?>" />%</td>
-        <td align="center"><input type="text" name="discount<?php echo $a[0]; ?>ActiveTill" value="<?php echo $a[5]; ?>" /></td>
+        <td align="right"><?php echo $a[11]; ?></td>
+        <td align="center"<?php if ($a[12] == 0) echo ' bgcolor="#CC0000"'; ?>><input type="text" size="3" name="discount<?php echo $a[0]; ?>" value="<?php echo $a[4]; ?>" />%</td>
+        <td align="center"<?php if ($a[12] == 0) echo ' bgcolor="#CC0000"'; ?>><input type="text" name="discount<?php echo $a[0]; ?>ActiveTill" value="<?php echo $a[5]; ?>" /></td>
         <td><?php echo $a[6] . " / " . $a[7] . " / " . $a[8]; ?></td>
         <td align="center"><input type="text" size="3" name="add<?php echo $a[0]; ?>Instances" value="" /></td>
         <td><font size=2><?php echo $a[9]; ?></font></td>

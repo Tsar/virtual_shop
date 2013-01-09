@@ -152,8 +152,15 @@ class DatabaseManager {
         $this->mysqli->close();
     }
 
-    public function getArticles() {
-        if ($result = $this->query('SELECT a.id, a.name, a.description, a.price, a.discount, a.discount_active_till, a.avaliable, a.booked, a.bought, u1.name, u2.name FROM articles AS a LEFT OUTER JOIN users AS u1 ON a.added_by_manager_id = u1.id LEFT OUTER JOIN users AS u2 ON a.last_modified_by_manager_id = u2.id')) {
+    public function getArticles($forManagement = false) {
+        $queryText = 'SELECT a.id, a.name, a.description, a.price, ';
+        if ($forManagement) {
+            $queryText .= 'a.discount, a.discount_active_till';
+        } else {
+            $queryText .= 'IF(a.discount_active_till >= NOW(), a.discount, 0), IF(a.discount_active_till >= NOW(), a.discount_active_till, "0000-00-00 00:00:00")';
+        }
+        $queryText .= ', a.avaliable, a.booked, a.bought, u1.name, u2.name, IF(a.discount_active_till >= NOW(), CEIL(a.price * (1.0 - a.discount / 100.0)), a.price), IF(a.discount > 0 AND a.discount_active_till < NOW(), 0, 1) FROM articles AS a LEFT OUTER JOIN users AS u1 ON a.added_by_manager_id = u1.id LEFT OUTER JOIN users AS u2 ON a.last_modified_by_manager_id = u2.id';
+        if ($result = $this->query($queryText)) {
             $ans = array();
             while ($row = $result->fetch_array(MYSQLI_NUM)) {
                 array_push($ans, $row);

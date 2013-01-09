@@ -52,7 +52,7 @@ class ArticlesTab extends AbstractTab {
     <?php tr($i); ?>
         <td><?php echo $a[1]; ?></td>
         <td><font size=2><?php echo $a[2]; ?></font></td>
-        <td align="right"><?php echo ceil($a[3] * (1.0 - $a[4] / 100.0)); ?></td>
+        <td align="right"><?php echo $a[11]; ?></td>
         <td align="right"><?php echo $a[4] == 0 ? "-" : $a[4] . " %"; ?></td>
         <td align="center"><?php echo $a[4] == 0 ? "-" : $a[5]; ?></td>
         <td align="right"><?php echo $a[6]; ?></td>
