@@ -52,12 +52,10 @@ END$$
 
 CREATE PROCEDURE buy_article(_user_id INT, _article_id INT, _count INT)
 BEGIN
-  DECLARE cur_user_cash BIGINT;
-  DECLARE cur_price BIGINT;
+  DECLARE cur_user_cash, cur_price, full_price BIGINT;
   DECLARE cur_discount DOUBLE;
   DECLARE cur_discount_active_till DATETIME;
   DECLARE cur_avaliable INT;
-  DECLARE full_price BIGINT;
   IF (_count > 0) THEN
     SELECT money INTO cur_user_cash FROM users WHERE id = _user_id;
     SELECT price, discount, discount_active_till, avaliable INTO cur_price, cur_discount, cur_discount_active_till, cur_avaliable FROM articles WHERE id = _article_id;
@@ -79,11 +77,9 @@ CREATE PROCEDURE buy_out_article(_booking_id INT, _user_id INT, _count INT)
 BEGIN
   DECLARE u, a, cur_booked_count INT;
 
-  DECLARE cur_user_cash BIGINT;
-  DECLARE cur_price BIGINT;
+  DECLARE cur_user_cash, cur_price, full_price BIGINT;
   DECLARE cur_discount DOUBLE;
   DECLARE cur_discount_active_till DATETIME;
-  DECLARE full_price BIGINT;
 
   IF (_count > 0) THEN
     SELECT user_id, article_id, `count` INTO u, a, cur_booked_count FROM booked WHERE id = _booking_id;
@@ -109,7 +105,12 @@ END$$
 
 CREATE PROCEDURE remove_booking(_booking_id INT, _user_id INT)
 BEGIN
-  
+  DECLARE u, a, cur_booked_count INT;
+  SELECT user_id, article_id, `count` INTO u, a, cur_booked_count FROM booked WHERE id = _booking_id;
+  IF (u = _user_id) THEN
+    UPDATE articles SET booked = booked - cur_booked_count, avaliable = avaliable + cur_booked_count WHERE id = a;
+    DELETE FROM booked WHERE id = _booking_id;
+  END IF;
 END$$
 
 DELIMITER ;
