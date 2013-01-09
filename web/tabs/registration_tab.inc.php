@@ -16,7 +16,7 @@ class RegistrationTab extends AbstractTab {
         $this->dbm = $dbm;
         $this->errorInfo = "";
         $this->successInfo = "";
-        $this->userInfo = new UserInfo("", "", "", 0, false);
+        $this->userInfo = new UserInfo("", "", "", 1000000, false);
     }
 
     public function getTabInfo() {
@@ -83,7 +83,7 @@ class RegistrationTab extends AbstractTab {
             $regRes = $this->dbm->registerNewUser($this->userInfo);
             if ($regRes === RegistrationResult::OK) {
                 $this->successInfo = "Registered successfully";
-                $this->userInfo = new UserInfo("", "", "", 0, false);
+                $this->userInfo = new UserInfo("", "", "", 1000000, false);
             } else if ($regRes === RegistrationResult::ERR_EMAIL_EXISTS) {
                 $this->errorInfo = "Such email already registered";
             } else if ($regRes === RegistrationResult::ERR_DB_ERROR) {
