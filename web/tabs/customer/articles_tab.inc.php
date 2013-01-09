@@ -10,13 +10,15 @@ class ArticlesTab extends AbstractTab {
     private $errorInfo;
     private $successInfo;
     private $userId;
+    private $money;
 
-    function __construct($formAction, DatabaseManager &$dbm, $userId) {
+    function __construct($formAction, DatabaseManager &$dbm, $userId, $money) {
         $this->formAction = $formAction;
         $this->dbm = $dbm;
         $this->errorInfo = "";
         $this->successInfo = "";
         $this->userId = $userId;
+        $this->money = $money;
     }
 
     public function getTabInfo() {
@@ -27,6 +29,7 @@ class ArticlesTab extends AbstractTab {
         display_content_start_block();
         display_error_or_info_if_any($this->errorInfo, $this->successInfo);
 ?>
+<p>Your cash: <b><?php echo $this->money; ?></b>.</p>
 <form method="post" action="<?php echo $this->formAction; ?>">
 <table id="infoTable">
     <tr>
@@ -49,7 +52,7 @@ class ArticlesTab extends AbstractTab {
     <?php tr($i); ?>
         <td><?php echo $a[1]; ?></td>
         <td><font size=2><?php echo $a[2]; ?></font></td>
-        <td align="right"><?php echo $a[3] * (1.0 - $a[4] / 100.0); ?></td>
+        <td align="right"><?php echo ceil($a[3] * (1.0 - $a[4] / 100.0)); ?></td>
         <td align="right"><?php echo $a[4] == 0 ? "-" : $a[4] . " %"; ?></td>
         <td align="center"><?php echo $a[4] == 0 ? "-" : $a[5]; ?></td>
         <td align="right"><?php echo $a[6]; ?></td>
@@ -88,6 +91,7 @@ class ArticlesTab extends AbstractTab {
             }
 
             $this->dbm->commitTransaction();
+            $this->money = $this->dbm->getUserInfo($this->userId)->money;
         }
     }
 }

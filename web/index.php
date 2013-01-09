@@ -76,7 +76,7 @@
 
                 $user_info = $dbm->getUserInfo($user_id);
 
-                $articlesTab = new ArticlesTab($selfLink, $dbm, $user_id);
+                $articlesTab = new ArticlesTab($selfLink, $dbm, $user_id, $user_info->money);
                 if ($articlesTab->isSubmitted()) {
                     $page = $articlesTab->getTabInfo()->page;
                     $articlesTab->handleSubmit();

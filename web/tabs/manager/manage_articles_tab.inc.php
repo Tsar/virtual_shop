@@ -81,6 +81,7 @@ class ManageArticlesTab extends AbstractTab {
         <th>Name</th>
         <th>Description</th>
         <th>Price</th>
+        <th>Price<br /><font size="2">with<br />discount</font></th>
         <th>Discount</th>
         <th>Discount<br />active till</th>
         <th>Avaliable<br />Booked<br />Bought</th>
@@ -99,6 +100,7 @@ class ManageArticlesTab extends AbstractTab {
         <td><?php echo $a[1]; ?></td>
         <td><font size=2><?php echo $a[2]; ?></font></td>
         <td align="center"><input type="text" size="5" name="price<?php echo $a[0]; ?>" value="<?php echo $a[3]; ?>" /></td>
+        <td align="right"><?php echo ceil($a[3] * (1.0 - $a[4] / 100.0)); ?></td>
         <td align="center"><input type="text" size="3" name="discount<?php echo $a[0]; ?>" value="<?php echo $a[4]; ?>" />%</td>
         <td align="center"><input type="text" name="discount<?php echo $a[0]; ?>ActiveTill" value="<?php echo $a[5]; ?>" /></td>
         <td><?php echo $a[6] . " / " . $a[7] . " / " . $a[8]; ?></td>
