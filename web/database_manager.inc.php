@@ -225,6 +225,28 @@ class DatabaseManager {
 
         return ($this->query("CALL buy_article($userId, $articleId, $count)"));
     }
+
+    public function getBookedArticles($userId) {
+        $userId    = $this->escapeStr($userId);
+
+        if ($result = $this->query('SELECT b.id, a.name, a.description, a.price, IF(a.discount_active_till >= NOW(), a.discount, 0), IF(a.discount_active_till >= NOW(), a.discount_active_till, "0000-00-00 00:00:00"), b.count, IF(a.discount_active_till >= NOW(), CEIL(a.price * (1.0 - a.discount / 100.0)), a.price), b.booked_till FROM booked AS b LEFT OUTER JOIN articles AS a ON a.id = b.article_id WHERE b.user_id = ' . $userId . ' AND b.booked_till >= NOW() ORDER BY b.id')) {
+            $ans = array();
+            while ($row = $result->fetch_array(MYSQLI_NUM)) {
+                array_push($ans, $row);
+            }
+            return $ans;
+        } else {
+            return false;
+        }
+    }
+
+    public function buyOutArticle($bookingId, $userId, $count) {
+        $bookingId = $this->escapeStr($bookingId);
+        $userId    = $this->escapeStr($userId);
+        $count     = $this->escapeStr($count);
+
+        return  ($this->query("CALL buy_out_article($bookingId, $userId, $count)"));
+    }
 }
 
 ?>

@@ -6,6 +6,7 @@
     require_once('tabs/logout_tab.inc.php');
 
     require_once('tabs/customer/articles_tab.inc.php');
+    require_once('tabs/customer/booked_tab.inc.php');
 
     require_once('tabs/manager/manage_articles_tab.inc.php');
 
@@ -81,7 +82,15 @@
                     $page = $articlesTab->getTabInfo()->page;
                     $articlesTab->handleSubmit();
                 }
+
+                $bookedTab = new BookedTab($selfLink, $dbm, $user_id, $user_info->money);
+                if ($bookedTab->isSubmitted()) {
+                    $page = $bookedTab->getTabInfo()->page;
+                    $bookedTab->handleSubmit();
+                }
+
                 $tabHolder->addTab($articlesTab);
+                $tabHolder->addTab($bookedTab);
 
                 $profileTab = new ProfileTab($selfLink, $dbm, $user_id, $user_info);
                 $logoutTab = new LogoutTab();

@@ -2,6 +2,7 @@ DROP PROCEDURE IF EXISTS update_article_price_and_discount;
 DROP PROCEDURE IF EXISTS add_article_instances;
 DROP PROCEDURE IF EXISTS book_article;
 DROP PROCEDURE IF EXISTS buy_article;
+DROP PROCEDURE IF EXISTS buy_out_article;
 
 DELIMITER $$
 
@@ -61,13 +62,18 @@ BEGIN
           BEGIN
             UPDATE users SET money = cur_user_cash - full_price WHERE id = _user_id;
             UPDATE articles SET avaliable = cur_avaliable - _count, bought = bought + _count WHERE id = _article_id;
-            INSERT INTO bought (user_id, article_id, `count`, bought_on) VALUES (_user_id, _article_id, _count, NOW());
+            INSERT INTO bought (user_id, article_id, `count`, bought_on, money_spent) VALUES (_user_id, _article_id, _count, NOW(), full_price);
           END;
         END IF;
 
       END;
     END IF;
   END IF;
+END$$
+
+CREATE PROCEDURE buy_out_article(IN _booking_id INT, IN _user_id INT, IN _count INT)
+BEGIN
+  
 END$$
 
 DELIMITER ;

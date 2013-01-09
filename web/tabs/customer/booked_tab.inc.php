@@ -4,7 +4,7 @@ require_once('tabs/abstract_tab.inc.php');
 require_once('style.inc.php');
 require_once('database_manager.inc.php');
 
-class ArticlesTab extends AbstractTab {
+class BookedTab extends AbstractTab {
     private $formAction;
     private $dbm;
     private $errorInfo;
@@ -22,7 +22,7 @@ class ArticlesTab extends AbstractTab {
     }
 
     public function getTabInfo() {
-        return new TabInfo("Articles", "articles");
+        return new TabInfo("Booked", "booked");
     }
 
     public function displayContent() {
@@ -38,12 +38,12 @@ class ArticlesTab extends AbstractTab {
         <th>Price<br /><font size="2">with<br />discount</font></th>
         <th>Discount</th>
         <th>Discount<br />active till</th>
-        <th>Avaliable</th>
-        <th>Book<br /><font size="2">for 48 hours</font></th>
-        <th>Buy</th>
+        <th>Booked<br />count</th>
+        <th>Booked till</th>
+        <th>Buy out</th>
     </tr>
 <?php
-        if ($articles = $this->dbm->getArticles()) {
+        if ($articles = $this->dbm->getBookedArticles($this->userId)) {
             $i = 0;
             $ids = array();
             foreach ($articles as $a) {
@@ -52,19 +52,19 @@ class ArticlesTab extends AbstractTab {
     <?php tr($i); ?>
         <td><?php echo $a[1]; ?></td>
         <td><font size=2><?php echo $a[2]; ?></font></td>
-        <td align="right"><?php echo $a[11]; ?></td>
+        <td align="right"><?php echo $a[7]; ?></td>
         <td align="right"><?php echo $a[4] == 0 ? "-" : $a[4] . " %"; ?></td>
-        <td align="center"><font size="2"><?php echo $a[4] == 0 ? "-" : $a[5]; ?></font></td>
+        <td align="center"><font size=2><?php echo $a[4] == 0 ? "-" : $a[5]; ?></font></td>
         <td align="right"><?php echo $a[6]; ?></td>
-        <td><input type="checkbox" id="book<?php echo $a[0]; ?>" name="book<?php echo $a[0]; ?>" value="on" /><input type="text" size="2" name="bookCount<?php echo $a[0]; ?>" value="1" onclick="document.getElementById('book<?php echo $a[0]; ?>').checked = true;" onchange="document.getElementById('book<?php echo $a[0]; ?>').checked = true;" /></td>
-        <td><input type="checkbox" id="buy<?php  echo $a[0]; ?>" name="buy<?php  echo $a[0]; ?>" value="on" /><input type="text" size="2" name="buyCount<?php  echo $a[0]; ?>" value="1" onclick="document.getElementById('buy<?php  echo $a[0]; ?>').checked = true;" onchange="document.getElementById('buy<?php  echo $a[0]; ?>').checked = true;" /></td>
+        <td align="center"><font size=2><?php echo $a[8]; ?></font></td>
+        <td><input type="checkbox" id="buy<?php echo $a[0]; ?>" name="buy<?php echo $a[0]; ?>" value="on" /><input type="text" size="2" name="buyCount<?php echo $a[0]; ?>" value="<?php echo $a[6]; ?>" onclick="document.getElementById('buy<?php echo $a[0]; ?>').checked = true;" onchange="document.getElementById('buy<?php echo $a[0]; ?>').checked = true;" /></td>
     </tr>
 <?php
             }
         }
 ?>
 </table>
-<p><center><input type="submit" name="submitBookAndBuy" value="Book and Buy"></center></p>
+<p><center><input type="submit" name="submitBuyOut" value="Buy out"></center></p>
 <input type="hidden" name="ids" value="<?php echo implode(",", $ids); ?>">
 </form>
 <?php
@@ -72,7 +72,7 @@ class ArticlesTab extends AbstractTab {
     }
 
     public function isSubmitted() {
-        return (isset($_POST['submitBookAndBuy']) && isset($_POST['ids']));
+        return (isset($_POST['submitBuyOut']) && isset($_POST['ids']));
     }
 
     public function handleSubmit() {
@@ -81,12 +81,8 @@ class ArticlesTab extends AbstractTab {
             $this->dbm->startTransaction();
 
             foreach ($ids as $id) {
-                if (isset($_POST["book$id"]) && $_POST["book$id"] === "on" && is_numeric($_POST["bookCount$id"])) {
-                    $this->dbm->bookArticle($this->userId, $id, $_POST["bookCount$id"], date('Y-m-d H:i:s', time() + 86400 * 2));
-                }
-
                 if (isset($_POST["buy$id"]) && $_POST["buy$id"] === "on" && is_numeric($_POST["buyCount$id"])) {
-                    $this->dbm->buyArticle($this->userId, $id, $_POST["buyCount$id"]);
+                    $this->dbm->buyOutArticle($id, $this->userId, $_POST["buyCount$id"]);
                 }
             }
 

@@ -36,6 +36,7 @@ CREATE TABLE IF NOT EXISTS `bought` (
   `article_id` int(11) NOT NULL,
   `count` int(11) NOT NULL,
   `bought_on` datetime NOT NULL,
+  `money_spent` bigint(20) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
