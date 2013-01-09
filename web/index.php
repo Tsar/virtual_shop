@@ -10,6 +10,7 @@
     require_once('tabs/customer/bought_tab.inc.php');
 
     require_once('tabs/manager/manage_articles_tab.inc.php');
+    require_once('tabs/manager/stats_tab.inc.php');
 
     require_once('tab_holder.inc.php');
     require_once('database_manager.inc.php');
@@ -112,11 +113,11 @@
                         $page = $manageArticlesTab->getTabInfo()->page;
                         $manageArticlesTab->handleSubmit();
                     }
+
+                    $statsTab = new StatsTab($dbm);
+
                     $tabHolder->addTab($manageArticlesTab);
-
-                // if a customer is logged in
-                } else {
-
+                    $tabHolder->addTab($statsTab);
                 }
 
                 $tabHolder->addTab($profileTab);

@@ -84,7 +84,7 @@ class ManageArticlesTab extends AbstractTab {
         <th>Price<br /><font size="2">with<br />discount</font></th>
         <th>Discount</th>
         <th>Discount<br />active till</th>
-        <th>Avaliable<br />Booked<br />Bought</th>
+        <th>Avaliable<br />Booked<br />Sold</th>
         <th>Add<br />instances</th>
         <th>Added<br />by</th>
         <th>Last<br />modified<br />by</th>
