@@ -41,6 +41,7 @@ class BookedTab extends AbstractTab {
         <th>Booked<br />count</th>
         <th>Booked till</th>
         <th>Buy out</th>
+        <th>Remove<br />booking</th>
     </tr>
 <?php
         if ($articles = $this->dbm->getBookedArticles($this->userId)) {
@@ -57,7 +58,8 @@ class BookedTab extends AbstractTab {
         <td align="center"><font size=2><?php echo $a[4] == 0 ? "-" : $a[5]; ?></font></td>
         <td align="right"><?php echo $a[6]; ?></td>
         <td align="center"><font size=2><?php echo $a[8]; ?></font></td>
-        <td><input type="checkbox" id="buy<?php echo $a[0]; ?>" name="buy<?php echo $a[0]; ?>" value="on" /><input type="text" size="2" name="buyCount<?php echo $a[0]; ?>" value="<?php echo $a[6]; ?>" onclick="document.getElementById('buy<?php echo $a[0]; ?>').checked = true;" onchange="document.getElementById('buy<?php echo $a[0]; ?>').checked = true;" /></td>
+        <td><input type="checkbox" id="buy<?php echo $a[0]; ?>" name="buy<?php echo $a[0]; ?>" value="on" onchange="if (this.checked) document.getElementById('removeBook<?php echo $a[0]; ?>').checked = false;" /><input type="text" size="2" name="buyCount<?php echo $a[0]; ?>" value="<?php echo $a[6]; ?>" onclick="document.getElementById('buy<?php echo $a[0]; ?>').checked = true;document.getElementById('removeBook<?php echo $a[0]; ?>').checked = false;" onchange="document.getElementById('buy<?php echo $a[0]; ?>').checked = true;document.getElementById('removeBook<?php echo $a[0]; ?>').checked = false;" /></td>
+        <td align="center"><input type="checkbox" id="removeBook<?php echo $a[0]; ?>" name="removeBook<?php echo $a[0]; ?>" value="on" onchange="if (this.checked) document.getElementById('buy<?php echo $a[0]; ?>').checked = false;" /></td>
     </tr>
 <?php
             }
@@ -83,6 +85,8 @@ class BookedTab extends AbstractTab {
             foreach ($ids as $id) {
                 if (isset($_POST["buy$id"]) && $_POST["buy$id"] === "on" && is_numeric($_POST["buyCount$id"])) {
                     $this->dbm->buyOutArticle($id, $this->userId, $_POST["buyCount$id"]);
+                } else if (isset($_POST["removeBook$id"]) && $_POST["removeBook$id"] === "on") {
+                    $this->dbm->removeBooking($id, $this->userId);
                 }
             }
 

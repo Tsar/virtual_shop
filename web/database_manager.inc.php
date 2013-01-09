@@ -247,6 +247,27 @@ class DatabaseManager {
 
         return  ($this->query("CALL buy_out_article($bookingId, $userId, $count)"));
     }
+
+    public function getBoughtArticles($userId) {
+        $userId    = $this->escapeStr($userId);
+
+        if ($result = $this->query('SELECT a.name, a.description, b.count, b.bought_on, b.money_spent FROM bought AS b LEFT OUTER JOIN articles AS a ON a.id = b.article_id WHERE b.user_id = ' . $userId . ' ORDER BY b.id')) {
+            $ans = array();
+            while ($row = $result->fetch_array(MYSQLI_NUM)) {
+                array_push($ans, $row);
+            }
+            return $ans;
+        } else {
+            return false;
+        }
+    }
+
+    public function removeBooking($bookingId, $userId) {
+        $bookingId = $this->escapeStr($bookingId);
+        $userId    = $this->escapeStr($userId);
+
+        return  ($this->query("CALL remove_booking($bookingId, $userId)"));
+    }
 }
 
 ?>

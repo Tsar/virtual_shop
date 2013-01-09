@@ -4,6 +4,7 @@ DROP PROCEDURE IF EXISTS book_article;
 DROP FUNCTION IF EXISTS calc_full_price;
 DROP PROCEDURE IF EXISTS buy_article;
 DROP PROCEDURE IF EXISTS buy_out_article;
+DROP PROCEDURE IF EXISTS remove_booking;
 
 DELIMITER $$
 
@@ -104,6 +105,11 @@ BEGIN
       END IF;
     END IF;
   END IF;
+END$$
+
+CREATE PROCEDURE remove_booking(_booking_id INT, _user_id INT)
+BEGIN
+  
 END$$
 
 DELIMITER ;
