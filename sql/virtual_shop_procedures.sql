@@ -5,6 +5,7 @@ DROP FUNCTION IF EXISTS calc_full_price;
 DROP PROCEDURE IF EXISTS buy_article;
 DROP PROCEDURE IF EXISTS buy_out_article;
 DROP PROCEDURE IF EXISTS remove_booking;
+DROP PROCEDURE IF EXISTS remove_outdated_bookings;
 
 DELIMITER $$
 
@@ -79,11 +80,11 @@ BEGIN
 
   DECLARE cur_user_cash, cur_price, full_price BIGINT;
   DECLARE cur_discount DOUBLE;
-  DECLARE cur_discount_active_till DATETIME;
+  DECLARE cur_discount_active_till, cur_booked_till DATETIME;
 
   IF (_count > 0) THEN
-    SELECT user_id, article_id, `count` INTO u, a, cur_booked_count FROM booked WHERE id = _booking_id;
-    IF (u = _user_id AND cur_booked_count >= _count) THEN
+    SELECT user_id, article_id, `count`, booked_till INTO u, a, cur_booked_count, cur_booked_till FROM booked WHERE id = _booking_id;
+    IF (u = _user_id AND cur_booked_count >= _count AND cur_booked_till >= NOW()) THEN
       SELECT money INTO cur_user_cash FROM users WHERE id = u;
       SELECT price, discount, discount_active_till INTO cur_price, cur_discount, cur_discount_active_till FROM articles WHERE id = a;
 
@@ -113,4 +114,20 @@ BEGIN
   END IF;
 END$$
 
+CREATE PROCEDURE remove_outdated_bookings()
+BEGIN
+  UPDATE articles, booked SET articles.avaliable = articles.avaliable + booked.count, booked.user_id = 0 WHERE booked.booked_till < NOW() AND articles.id = booked.article_id;
+  DELETE FROM booked WHERE user_id = 0;
+END$$
+
 DELIMITER ;
+
+
+SET GLOBAL event_scheduler = ON;
+
+DROP EVENT IF EXISTS remove_outdated_bookings_event;
+
+CREATE EVENT remove_outdated_bookings_event
+  ON SCHEDULE EVERY 1 HOUR
+  DO
+    CALL remove_outdated_bookings();
