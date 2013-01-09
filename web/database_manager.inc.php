@@ -268,6 +268,24 @@ class DatabaseManager {
 
         return  ($this->query("CALL remove_booking($bookingId, $userId)"));
     }
+
+    private function getFirstValueOfQuery($q) {
+        $x = $this->query($q)->fetch_array(MYSQLI_NUM);
+        return $x[0];
+    }
+
+    public function getStats() {
+        $stats['All different articles count']                               = $this->getFirstValueOfQuery('SELECT COUNT(*) FROM articles');
+        $stats['All different avaliable articles count']                     = $this->getFirstValueOfQuery('SELECT COUNT(*) FROM articles WHERE avaliable > 0');
+        $stats['All avaliable articles count']                               = $this->getFirstValueOfQuery('SELECT SUM(avaliable) FROM articles');
+        $stats['All avaliable articles total price (<b>with</b> discounts)'] = $this->getFirstValueOfQuery('SELECT SUM(IF(discount_active_till >= NOW(), CEIL(price * (1.0 - discount / 100.0)), price) * avaliable) FROM articles');;
+        $stats['All avaliable articles total price (without discounts)']     = $this->getFirstValueOfQuery('SELECT SUM(price * avaliable) FROM articles');
+        $stats['All booked articles count']                                  = $this->getFirstValueOfQuery('SELECT SUM(count) FROM booked');
+        $stats['All sold articles count']                                    = $this->getFirstValueOfQuery('SELECT SUM(count) FROM bought');
+        $stats['Total profit']                                               = $this->getFirstValueOfQuery('SELECT SUM(money_spent) FROM bought');;
+
+        return $stats;
+    }
 }
 
 ?>

@@ -17,6 +17,26 @@ class StatsTab extends AbstractTab {
 
     public function displayContent() {
         display_content_start_block();
+        $i = 0;
+        $stats = $this->dbm->getStats();
+?>
+<table id="infoTable">
+    <tr>
+        <th>Statistic name</th>
+        <th>Statistic value</th>
+    </tr>
+<?php
+        foreach ($stats as $stn => $stv) {
+?>
+    <?php tr($i); ?>
+        <td align="left"><?php echo $stn; ?></td>
+        <td align="center"><?php echo $stv; ?></td>
+    </tr>
+<?php
+        }
+?>
+</table>
+<?php
         display_content_end_block();
     }
     
