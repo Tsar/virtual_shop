@@ -36,7 +36,7 @@ class ArticlesTab extends AbstractTab {
         <th>Discount</th>
         <th>Discount<br />active till</th>
         <th>Avaliable</th>
-        <th>Book</th>
+        <th>Book<br /><font size="2">for 48 hours</font></th>
         <th>Buy</th>
     </tr>
 <?php
@@ -67,11 +67,11 @@ class ArticlesTab extends AbstractTab {
 <?php
         display_content_end_block();
     }
-    
+
     public function isSubmitted() {
         return (isset($_POST['submitBookAndBuy']) && isset($_POST['ids']));
     }
-    
+
     public function handleSubmit() {
         $ids = explode(",", $_POST['ids']);
         if (!empty($ids)) {
@@ -79,7 +79,7 @@ class ArticlesTab extends AbstractTab {
 
             foreach ($ids as $id) {
                 if (isset($_POST["book$id"]) && $_POST["book$id"] === "on" && is_numeric($_POST["bookCount$id"])) {
-                    $this->dbm->bookArticle($this->userId, $id, $_POST["bookCount$id"]);
+                    $this->dbm->bookArticle($this->userId, $id, $_POST["bookCount$id"], date('Y-m-d H:i:s', time() + 86400 * 2));
                 }
 
                 if (isset($_POST["buy$id"]) && $_POST["buy$id"] === "on" && is_numeric($_POST["buyCount$id"])) {

@@ -77,6 +77,10 @@
                 $user_info = $dbm->getUserInfo($user_id);
 
                 $articlesTab = new ArticlesTab($selfLink, $dbm, $user_id);
+                if ($articlesTab->isSubmitted()) {
+                    $page = $articlesTab->getTabInfo()->page;
+                    $articlesTab->handleSubmit();
+                }
                 $tabHolder->addTab($articlesTab);
 
                 $profileTab = new ProfileTab($selfLink, $dbm, $user_id, $user_info);
@@ -91,12 +95,10 @@
                 // if a manager is logged in
                 if ($user_info->isManager) {
                     $manageArticlesTab = new ManageArticlesTab($selfLink, $dbm, $user_id);
-
                     if ($manageArticlesTab->isSubmitted()) {
                         $page = $manageArticlesTab->getTabInfo()->page;
                         $manageArticlesTab->handleSubmit();
                     }
-
                     $tabHolder->addTab($manageArticlesTab);
 
                 // if a customer is logged in

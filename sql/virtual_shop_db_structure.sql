@@ -10,16 +10,6 @@ CREATE TABLE IF NOT EXISTS `articles` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
-CREATE TABLE IF NOT EXISTS `article_instances` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `article_id` int(11) NOT NULL,
-  `booked_till` datetime DEFAULT NULL,
-  `booked_by_user_id` int(11) DEFAULT NULL,
-  `bought_time` datetime DEFAULT NULL,
-  `bought_by_user_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(1024) NOT NULL,
@@ -28,4 +18,24 @@ CREATE TABLE IF NOT EXISTS `users` (
   `money` bigint(20) NOT NULL,
   `is_manager` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `booked` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `article_id` int(11) NOT NULL,
+  `count` int(11) NOT NULL,
+  `booked_till` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `bought` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `article_id` int(11) NOT NULL,
+  `count` int(11) NOT NULL,
+  `bought_on` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;

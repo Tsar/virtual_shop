@@ -202,12 +202,13 @@ class DatabaseManager {
         return ($this->query("CALL add_article_instances($id, $newInstCount, $managerUserId)"));
     }
 
-    public function bookArticle($userId, $articleId, $count) {
+    public function bookArticle($userId, $articleId, $count, $bookTill) {
         $userId    = $this->escapeStr($userId);
         $articleId = $this->escapeStr($articleId);
         $count     = $this->escapeStr($count);
+        $bookTill  = $this->escapeStr($bookTill);
 
-        return ($this->query("CALL book_article($userId, $articleId, $count)"));
+        return ($this->query("CALL book_article($userId, $articleId, $count, \"$bookTill\")"));
     }
 
     public function buyArticle($userId, $articleId, $count) {
