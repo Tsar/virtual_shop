@@ -201,6 +201,22 @@ class DatabaseManager {
 
         return ($this->query("CALL add_article_instances($id, $newInstCount, $managerUserId)"));
     }
+
+    public function bookArticle($userId, $articleId, $count) {
+        $userId    = $this->escapeStr($userId);
+        $articleId = $this->escapeStr($articleId);
+        $count     = $this->escapeStr($count);
+
+        return ($this->query("CALL book_article($userId, $articleId, $count)"));
+    }
+
+    public function buyArticle($userId, $articleId, $count) {
+        $userId    = $this->escapeStr($userId);
+        $articleId = $this->escapeStr($articleId);
+        $count     = $this->escapeStr($count);
+
+        return ($this->query("CALL buy_article($userId, $articleId, $count)"));
+    }
 }
 
 ?>

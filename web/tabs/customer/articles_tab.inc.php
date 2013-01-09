@@ -36,12 +36,15 @@ class ArticlesTab extends AbstractTab {
         <th>Discount</th>
         <th>Discount<br />active till</th>
         <th>Avaliable</th>
+        <th>Book</th>
+        <th>Buy</th>
     </tr>
 <?php
         if ($articles = $this->dbm->getArticles()) {
             $i = 0;
             $ids = array();
             foreach ($articles as $a) {
+                array_push($ids, $a[0]);
 ?>
     <?php tr($i); ?>
         <td><?php echo $a[1]; ?></td>
@@ -50,6 +53,8 @@ class ArticlesTab extends AbstractTab {
         <td align="right"><?php echo $a[4] == 0 ? "-" : $a[4] . " %"; ?></td>
         <td align="center"><?php echo $a[4] == 0 ? "-" : $a[5]; ?></td>
         <td align="right"><?php echo $a[6]; ?></td>
+        <td><input type="checkbox" id="book<?php echo $a[0]; ?>" name="book<?php echo $a[0]; ?>" value="on" /><input type="text" size="2" name="bookCount<?php echo $a[0]; ?>" value="1" onclick="document.getElementById('book<?php echo $a[0]; ?>').checked = true;" onchange="document.getElementById('book<?php echo $a[0]; ?>').checked = true;" /></td>
+        <td><input type="checkbox" id="buy<?php  echo $a[0]; ?>" name="buy<?php  echo $a[0]; ?>" value="on" /><input type="text" size="2" name="buyCount<?php  echo $a[0]; ?>" value="1" onclick="document.getElementById('buy<?php  echo $a[0]; ?>').checked = true;" onchange="document.getElementById('buy<?php  echo $a[0]; ?>').checked = true;" /></td>
     </tr>
 <?php
             }
@@ -71,15 +76,17 @@ class ArticlesTab extends AbstractTab {
         $ids = explode(",", $_POST['ids']);
         if (!empty($ids)) {
             $this->dbm->startTransaction();
-            /*
+
             foreach ($ids as $id) {
-                $this->dbm->updateArticlePriceAndDiscount($id, $_POST["price$id"], $_POST["discount$id"], $_POST["discount$id" . "ActiveTill"], $this->userId);
-                $newInstCount = $_POST["add$id" . "Instances"];
-                if ($newInstCount !== "" && is_numeric($newInstCount)) {
-                    $this->dbm->addArticleInstances($id, $newInstCount, $this->userId);
+                if (isset($_POST["book$id"]) && $_POST["book$id"] === "on" && is_numeric($_POST["bookCount$id"])) {
+                    $this->dbm->bookArticle($this->userId, $id, $_POST["bookCount$id"]);
+                }
+
+                if (isset($_POST["buy$id"]) && $_POST["buy$id"] === "on" && is_numeric($_POST["buyCount$id"])) {
+                    $this->dbm->buyArticle($this->userId, $id, $_POST["buyCount$id"]);
                 }
             }
-            */
+
             $this->dbm->commitTransaction();
         }
     }

@@ -151,6 +151,7 @@ class ManageArticlesTab extends AbstractTab {
             $ids = explode(",", $_POST['ids']);
             if (!empty($ids)) {
                 $this->dbm->startTransaction();
+
                 foreach ($ids as $id) {
                     $this->dbm->updateArticlePriceAndDiscount($id, $_POST["price$id"], $_POST["discount$id"], $_POST["discount$id" . "ActiveTill"], $this->userId);
                     $newInstCount = $_POST["add$id" . "Instances"];
@@ -158,6 +159,7 @@ class ManageArticlesTab extends AbstractTab {
                         $this->dbm->addArticleInstances($id, $newInstCount, $this->userId);
                     }
                 }
+
                 $this->dbm->commitTransaction();
             }
         }
