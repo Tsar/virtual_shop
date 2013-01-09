@@ -270,8 +270,13 @@ class DatabaseManager {
     }
 
     private function getFirstValueOfQuery($q) {
-        $x = $this->query($q)->fetch_array(MYSQLI_NUM);
-        return $x[0];
+        $ans = "";
+        if ($result = $this->query($q)) {
+            if ($row = $result->fetch_array(MYSQLI_NUM)) {
+                $ans = $row[0];
+            }
+        }
+        return ($ans != "") ? $ans : "0";
     }
 
     public function getStats() {

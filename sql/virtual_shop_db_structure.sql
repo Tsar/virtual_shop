@@ -5,6 +5,9 @@ CREATE TABLE IF NOT EXISTS `articles` (
   `price` bigint(20) NOT NULL,
   `discount` double NOT NULL,
   `discount_active_till` datetime NOT NULL,
+  `avaliable` int(11) NOT NULL DEFAULT '0',
+  `booked` int(11) NOT NULL DEFAULT '0',
+  `bought` int(11) NOT NULL DEFAULT '0',
   `added_by_manager_id` int(11) NOT NULL,
   `last_modified_by_manager_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
