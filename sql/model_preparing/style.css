@@ -1,0 +1,66 @@
+body {
+    font-family: "Arial Cyr", Arial, sans-serif;
+}
+
+#holder {
+    width: 100%;
+}
+
+#holder td {
+}
+
+
+#phys_model {
+    border: 2px solid black;
+    border-collapse: collapse;
+}
+
+#phys_model th {
+    border-bottom: 1px solid black;
+    text-align: center;
+}
+
+#phys_model td {
+    padding-left: 10px;
+    padding-right: 10px;
+    border: 0px;
+}
+
+#infoTable {
+    width: 100%;
+    border: 2px solid black;
+    border-collapse: collapse;
+}
+#infoTable th {
+    background: #CCFFCC;
+    padding: 5px;
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+}
+#infoTable td {
+    padding: 5px;
+    border: 1px solid black;
+}
+#infoTable .odd {
+    background: #EEEEFF;
+}
+#infoTable .even {
+    background: #EEFFEE;
+}
+
+#submitTable {
+    width: 100%;
+    border: 2px solid #FFEEFF;
+    border-collapse: collapse;
+}
+#submitTable td {
+    padding: 5px;
+}
+#submitTable .odd {
+    background: #EEFFEE;
+}
+#submitTable .even {
+    background: #EEEEFF;
+}

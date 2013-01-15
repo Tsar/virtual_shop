@@ -1,0 +1,191 @@
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+<body>
+
+<table id="holder">
+  <tr>
+    <td>
+
+        <table id="phys_model">
+          <tr>
+            <th colspan="3"><b>articles</b></th>
+          </tr>
+          <tr>
+            <td><u>id</u></td>
+            <td>int</td>
+            <td>&laquo;M&raquo;, &laquo;PK&raquo;</td>
+          </tr>
+          <tr>
+            <td>name</td>
+            <td>varchar(1024)</td>
+            <td>&laquo;M&raquo;</td>
+          </tr>
+          <tr>
+            <td>description</td>
+            <td>text</td>
+            <td>&laquo;M&raquo;</td>
+          </tr>
+          <tr>
+            <td>price</td>
+            <td>bigint</td>
+            <td>&laquo;M&raquo;</td>
+          </tr>
+          <tr>
+            <td>discount</td>
+            <td>double</td>
+            <td>&laquo;O&raquo;</td>
+          </tr>
+          <tr>
+            <td>discount_active_till</td>
+            <td>datetime</td>
+            <td>&laquo;O&raquo;</td>
+          </tr>
+          <tr>
+            <td>avaliable</td>
+            <td>int</td>
+            <td>&laquo;M&raquo;</td>
+          </tr>
+          <tr>
+            <td>booked</td>
+            <td>int</td>
+            <td>&laquo;M&raquo;</td>
+          </tr>
+          <tr>
+            <td>bought</td>
+            <td>int</td>
+            <td>&laquo;M&raquo;</td>
+          </tr>
+          <tr>
+            <td>added_by_manager_id</td>
+            <td>int</td>
+            <td>&laquo;M&raquo;, &laquo;FK1&raquo;</td>
+          </tr>
+          <tr>
+            <td>last_modified_by_manager_id</td>
+            <td>int</td>
+            <td>&laquo;O&raquo;, &laquo;FK2&raquo;</td>
+          </tr>
+        </table>
+
+    </td>
+    <td>
+
+        <table id="phys_model">
+          <tr>
+            <th colspan="3"><b>users</b></th>
+          </tr>
+          <tr>
+            <td><u>id</u></td>
+            <td>int</td>
+            <td>&laquo;M&raquo;, &laquo;PK&raquo;</td>
+          </tr>
+          <tr>
+            <td>name</td>
+            <td>varchar(1024)</td>
+            <td>&laquo;M&raquo;</td>
+          </tr>
+          <tr>
+            <td>email</td>
+            <td>varchar(1024)</td>
+            <td>&laquo;M&raquo;, &laquo;K1&raquo;</td>
+          </tr>
+          <tr>
+            <td>md5</td>
+            <td>char(32)</td>
+            <td>&laquo;M&raquo;</td>
+          </tr>
+          <tr>
+            <td>money</td>
+            <td>bigint</td>
+            <td>&laquo;M&raquo;</td>
+          </tr>
+          <tr>
+            <td>is_manager</td>
+            <td>tinyint(1)</td>
+            <td>&laquo;M&raquo;</td>
+          </tr>
+        </table>
+
+    </td>
+  </tr>
+  <tr>
+    <td>
+
+        <table id="phys_model">
+          <tr>
+            <th colspan="3"><b>booked</b></th>
+          </tr>
+          <tr>
+            <td><u>id</u></td>
+            <td>int</td>
+            <td>&laquo;M&raquo;, &laquo;PK&raquo;</td>
+          </tr>
+          <tr>
+            <td>user_id</td>
+            <td>int</td>
+            <td>&laquo;M&raquo;, &laquo;FK1&raquo;</td>
+          </tr>
+          <tr>
+            <td>article_id</td>
+            <td>int</td>
+            <td>&laquo;M&raquo;, &laquo;FK2&raquo;</td>
+          </tr>
+          <tr>
+            <td>count</td>
+            <td>int</td>
+            <td>&laquo;M&raquo;</td>
+          </tr>
+          <tr>
+            <td>booked_till</td>
+            <td>datetime</td>
+            <td>&laquo;M&raquo;</td>
+          </tr>
+        </table>
+
+    </td>
+    <td>
+
+        <table id="phys_model">
+          <tr>
+            <th colspan="3"><b>bought</b></th>
+          </tr>
+          <tr>
+            <td><u>id</u></td>
+            <td>int</td>
+            <td>&laquo;M&raquo;, &laquo;PK&raquo;</td>
+          </tr>
+          <tr>
+            <td>user_id</td>
+            <td>int</td>
+            <td>&laquo;M&raquo;, &laquo;FK1&raquo;</td>
+          </tr>
+          <tr>
+            <td>article_id</td>
+            <td>int</td>
+            <td>&laquo;M&raquo;, &laquo;FK2&raquo;</td>
+          </tr>
+          <tr>
+            <td>count</td>
+            <td>int</td>
+            <td>&laquo;M&raquo;</td>
+          </tr>
+          <tr>
+            <td>bought_on</td>
+            <td>datetime</td>
+            <td>&laquo;M&raquo;</td>
+          </tr>
+          <tr>
+            <td>money_spent</td>
+            <td>bigint</td>
+            <td>&laquo;M&raquo;</td>
+          </tr>
+        </table>
+
+    </td>
+  </tr>
+</table>
+
+</body>
+</html>
