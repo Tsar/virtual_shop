@@ -45,8 +45,10 @@ END$$
 
 CREATE FUNCTION calc_full_price(_price BIGINT, _discount DOUBLE, _discount_active_till DATETIME, _count INT)
   RETURNS BIGINT
+  DETERMINISTIC
+  NO SQL
 BEGIN
-  IF ((_discount > 0) AND (_discount_active_till >= NOW())) THEN
+  IF (_discount > 0 AND _discount_active_till >= NOW()) THEN
     RETURN CEIL(_price * (1.0 - _discount / 100.0)) * _count;
   ELSE
     RETURN _price * _count;
