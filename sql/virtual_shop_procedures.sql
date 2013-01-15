@@ -1,3 +1,5 @@
+USE virtual_shop;
+
 DROP PROCEDURE IF EXISTS update_article_price_and_discount;
 DROP PROCEDURE IF EXISTS add_article_instances;
 DROP PROCEDURE IF EXISTS book_article;
