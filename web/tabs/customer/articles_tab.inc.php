@@ -53,8 +53,8 @@ class ArticlesTab extends AbstractTab {
         <td><?php echo $a[1]; ?></td>
         <td><font size=2><?php echo $a[2]; ?></font></td>
         <td align="right"><?php echo $a[11]; ?></td>
-        <td align="right"><?php echo $a[4] == 0 ? "-" : $a[4] . " %"; ?></td>
-        <td align="center"><font size="2"><?php echo $a[4] == 0 ? "-" : $a[5]; ?></font></td>
+        <td align="right"><?php echo (is_null($a[4]) || ($a[4] == 0)) ? "-" : $a[4] . " %"; ?></td>
+        <td align="center"><font size="2"><?php echo (is_null($a[4]) || ($a[4] == 0)) ? "-" : $a[5]; ?></font></td>
         <td align="right"><?php echo $a[6]; ?></td>
         <td><input type="checkbox" id="book<?php echo $a[0]; ?>" name="book<?php echo $a[0]; ?>" value="on" /><input type="text" size="2" name="bookCount<?php echo $a[0]; ?>" value="1" onclick="document.getElementById('book<?php echo $a[0]; ?>').checked = true;" onchange="document.getElementById('book<?php echo $a[0]; ?>').checked = true;" /></td>
         <td><input type="checkbox" id="buy<?php  echo $a[0]; ?>" name="buy<?php  echo $a[0]; ?>" value="on" /><input type="text" size="2" name="buyCount<?php  echo $a[0]; ?>" value="1" onclick="document.getElementById('buy<?php  echo $a[0]; ?>').checked = true;" onchange="document.getElementById('buy<?php  echo $a[0]; ?>').checked = true;" /></td>
